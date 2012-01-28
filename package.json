@@ -1,5 +1,5 @@
 {
-  "author": "ritch",
+  "author": "Ritchie Martori",
   "name": "mdoq-mongodb",
   "description": "simplified mongodb-native api with middleware",
   "version": "0.1.0",

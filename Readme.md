@@ -5,7 +5,11 @@
 ## Installation
 
     npm install mdoq-mongodb
-    
+
+## mdoq
+
+Mdoq provides a consistent http style, middleware based API that lets you re-use code across different sources of data.
+
 ## Using A Database
 
 To specify a database, simply `use()` the **mdoq-mongodb** middleware and specify a url. Credentials, port (27015), and host (localhost) are optional. 

@@ -28,7 +28,7 @@ Since [mdoq](https://github.com/ritch/mdoq) implements an **http** style api, **
 
 ## Executing
 
-Queries and other operations are only executed once a callback is provided. In order to find and modify an object you can chain operations.
+Queries and other reqs are only executed once a callback is provided. In order to find and modify an object you can chain reqs.
 
     users.get({age: {$gte: 21}).update({canDrink: true}, function(err, res) {
       console.log(res);
@@ -62,7 +62,7 @@ Calling `post()` will insert a document into a collection.
 
 ## Updating
 
-Updating a document requires a query and a [modifer object](http://www.mongodb.org/display/DOCS/Updating) containing modifier operations. You can also supply a regular object to replace the existing document.
+Updating a document requires a query and a [modifer object](http://www.mongodb.org/display/DOCS/Updating) containing modifier reqs. You can also supply a regular object to replace the existing document.
 
     users.get({name: 'Bob'}).put({$inc: {views: 1}}, function(err, res) {
       console.log(res);
@@ -78,7 +78,7 @@ Delete a document by simply calling `del()` with a query to match all the docume
     
 ## Modifiers
 
-To `limit()`, `sort()`, `count()`, or otherwise modify the documents in an operation, see the [mdoq api](https://github.com/ritch/mdoq).
+To `limit()`, `sort()`, `count()`, or otherwise modify the documents in an req, see the [mdoq api](https://github.com/ritch/mdoq).
 
 
 

@@ -13,10 +13,8 @@ describe('MongoDB Middleware', function(){
   
   it('should insert a new user', function(done){
     users.post(user, function(err, res) {
-      
-      console.info(res);
       expect(res.email).to.equal(user.email);
-      expect(res._id).to.be.a('string');
+      expect(res._id.toString()).to.be.a('string');
       done();
     })
   })
@@ -30,8 +28,8 @@ describe('MongoDB Middleware', function(){
 
   it('should update a user by id', function(done){
     var updates = {updated: true};
-    
-    users.get({email: user.email}).put(updates, function(err, res) {      
+
+    users.get({name: user.name}).put(updates, function(err, res) {  
       expect(res).to.eql(updates);
       done();
     });

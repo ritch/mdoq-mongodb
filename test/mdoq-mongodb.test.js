@@ -19,6 +19,13 @@ describe('MongoDB Middleware', function(){
     })
   })
   
+  it('should fail to insert a duplicate user', function(done){
+    users.post({email: user.email}, function(err, res) {
+      expect(err).to.exist;
+      done();
+    })
+  })
+  
   it('should return a user by query', function(done){
     users.get(user, function(err, res) {
       expect(res).to.eql(user);

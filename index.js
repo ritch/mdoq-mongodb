@@ -37,7 +37,7 @@ middleware.sort = function (keys, fn) {
 }
 
 middleware.count = function (fn) {
-  this.req.counting = true;
+  this.req.count = true;
   exec(this, fn);
   return this;
 }

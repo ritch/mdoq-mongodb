@@ -20,6 +20,14 @@ describe('Actions', function(){
         done(err);
       })
     })
+    
+    it('should only return what the query matches', function(done) {
+      users.get({email: names[0] + '@domain.com'}, function (err, res) {
+        expect(res).to.have.length(1);
+        expect(res[0].first).to.equal(names[0]);
+        done(err);
+      })
+    })
   })
   
   describe('post(document, [callback])', function(){

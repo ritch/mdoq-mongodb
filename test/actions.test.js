@@ -28,6 +28,16 @@ describe('Actions', function(){
         done(err);
       })
     })
+    
+    it('should convert _id strings of length 24 to ObjectIDs and match', function(done) {
+      users.get({email: names[0] + '@domain.com'}, function (err, res) {
+        users.get({_id: res[0]._id.toString()}, function (err, user) {
+          expect(user).to.have.length(1);
+          expect(user[0].first).to.equal(names[0]);
+          done(err);
+        })
+      })
+    })
   })
   
   describe('post(document, [callback])', function(){

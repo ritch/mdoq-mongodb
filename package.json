@@ -2,7 +2,7 @@
   "author": "Ritchie Martori",
   "name": "mdoq-mongodb",
   "description": "simplified mongodb-native api with middleware",
-  "version": "0.3.3",
+  "version": "0.3.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/ritch/mdoq-mongodb.git"

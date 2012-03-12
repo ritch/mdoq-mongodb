@@ -65,6 +65,30 @@ describe('Actions', function(){
         })
       })
     })
+    
+    it('should post a file if one is provided', function(done) {      
+      var fs = require('fs')
+        , file = fs.createReadStream(__dirname + '/support/test.txt')
+      ;
+      
+      users.file(file).post(function (err, body, req, res) {
+        users.get({_id: 'test.txt'}, function (err, body, req, res) {
+          expect(res.file).to.exist;
+          
+          var stream = res.file.stream(true)
+            , data;
+          
+          stream.on('data', function (buf) {
+            data = buf;
+          });
+          
+          stream.on('end', function () {
+            expect(data).to.exist;
+            done();
+          })
+        });
+      });
+    })
   })
   
   describe('put(changes, [callback]) or update(changes, [callback])', function(){

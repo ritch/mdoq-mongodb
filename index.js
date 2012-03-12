@@ -49,4 +49,11 @@ middleware.page = function (pageNum, perPage, fn) {
   return this;
 }
 
+middleware.file = function (file) {
+  if(file.pause) file.pause();
+  
+  this.req.file = file;
+  return this;
+}
+
 module.exports = middleware;

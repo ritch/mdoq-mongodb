@@ -76,17 +76,24 @@ describe('Actions', function(){
           expect(res.file).to.exist;
           
           var stream = res.file.stream(true)
-            , data;
+            , data = '';
           
           stream.on('data', function (buf) {
-            data = buf;
+            data += buf;
           });
           
           stream.on('end', function () {
             expect(data).to.exist;
+            expect(data.toString()).to.equal(require('fs').readFileSync(__dirname + '/support/test.txt').toString())
             done();
           })
         });
+      });
+    })
+    
+    it('should remove a file', function(done) {
+      users.del({_id: 'test.txt'}, function (e) {
+        done()
       });
     })
   })

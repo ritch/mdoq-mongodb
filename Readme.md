@@ -130,6 +130,26 @@ Like all other modifiers, `limit()` and `skip()` can be chained.
       console.info(res); [...10 users at index 10...]
     });
     
+### Files
+
+Add a file to a `req` to have it posted to the specified collections GridStore.
+    
+    // reference a remote file
+    var avatar = users.get({_id: 'avatar.jpg'});
+  
+    // upload file
+    avatar.file(fs.createReadStream('./avatar.jpg')).post(function(err) {
+      // download file
+      avatar.get(function(err, res) {
+        // stream it to disk
+        res.file.stream().pipe(fs.createWriteStream('./my-avatar.jpg'));
+        // delete it
+        avatar.del(function(err) {
+          console.info(err || 'deleted it!');
+        });
+      });
+    });
+    
 
 
 

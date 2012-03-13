@@ -150,6 +150,13 @@ Add a file to a `req` to have it posted to the specified collections GridStore.
       });
     });
     
+### Directory
+
+Return a listing of files for the collection
+
+    users.directory().get(function(err, files) {
+      console.info(err || files);
+    });
 
 
 

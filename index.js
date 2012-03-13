@@ -56,4 +56,9 @@ middleware.file = function (file) {
   return this;
 }
 
+middleware.directory = function () {
+  this.req.directory = true;
+  return this;
+}
+
 module.exports = middleware;

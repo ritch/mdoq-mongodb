@@ -91,6 +91,14 @@ describe('Actions', function(){
       });
     })
     
+    it('should list files', function(done) {
+      users.directory().get(function (err, files) {
+        expect(files).to.have.length(1);
+        done(err);
+      })
+    })
+    
+    
     it('should remove a file', function(done) {
       users.del({_id: 'test.txt'}, function (e) {
         done()

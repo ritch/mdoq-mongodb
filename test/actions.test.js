@@ -1,3 +1,7 @@
+var TEST_FILE = 'test.jpg'
+  , fs = require('fs')
+;
+
 describe('Actions', function(){
   describe('get(query, [callback])', function(){
     it('should return the results matching the given query', function(done) {
@@ -68,25 +72,32 @@ describe('Actions', function(){
     
     it('should post a file if one is provided', function(done) {      
       var fs = require('fs')
-        , file = fs.createReadStream(__dirname + '/support/test.txt')
+        , file = fs.createReadStream(__dirname + '/support/' + TEST_FILE)
       ;
-      
+
       users.file(file).post(function (err, body, req, res) {
-        users.get({_id: 'test.txt'}, function (err, body, req, res) {
+        users.get({_id: TEST_FILE}, function (err, body, req, res) {
           expect(res.file).to.exist;
           
           var stream = res.file.stream(true)
-            , data = '';
-          
-          stream.on('data', function (buf) {
-            data += buf;
-          });
-          
-          stream.on('end', function () {
-            expect(data).to.exist;
-            expect(data.toString()).to.equal(require('fs').readFileSync(__dirname + '/support/test.txt').toString())
-            done();
-          })
+            , output  = fs.createWriteStream(__dirname + '/support/' + 'out-' + TEST_FILE);
+
+          stream
+            .pipe(output)
+            .on('close', function () {
+              
+              // compare files
+              var input = fs.createReadStream(__dirname + '/support/' + TEST_FILE)
+                , output = fs.createReadStream(__dirname + '/support/' + 'out-' + TEST_FILE)
+                , exec = require('child_process').exec
+              ;
+              
+              exec(['diff', __dirname + '/support/' + TEST_FILE, __dirname + '/support/' + 'out-' + TEST_FILE].join(' '), function (differ, same) {
+                expect(differ).to.not.exist;
+                done();
+              })
+              
+            })
         });
       });
     })
@@ -100,7 +111,7 @@ describe('Actions', function(){
     
     
     it('should remove a file', function(done) {
-      users.del({_id: 'test.txt'}, function (e) {
+      users.del({_id: TEST_FILE}, function (e) {
         done()
       });
     })

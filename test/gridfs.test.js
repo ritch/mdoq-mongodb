@@ -21,11 +21,11 @@
 //       // Read in the content from a file, replace with your own
 //       
 //       // This shouldnt have to be set higher than the file...
-//       gridStore.chunkSize = 15000000;
+//       gridStore.chunkSize = 15000000000;
 //       
 //       // Open the file
 //       gridStore.open(function(err, gridStore) {
-//         var file = fs.createReadStream(__dirname + '/support/test.jpg')
+//         var file = fs.createReadStream(__dirname + '/support/test.jpg', {encoding: 'binary'})
 //         
 //         // Write the binary file data to GridFS
 //         file.on('data', function (chunk) {
@@ -42,7 +42,7 @@
 // 
 //              // Read in the whole file and check that it's the same content
 //              GridStore.read(db, result._id, function(err, fileData) {
-//                fs.writeFileSync(__dirname + '/support/mongodb-test.jpg', fileData);
+//                fs.writeFileSync(__dirname + '/support/mongodb-test.jpg', fileData, 'binary');
 //                
 //                var same = fileData.toString('base64') === fs.readFileSync(__dirname + '/support/test.jpg').toString('base64');
 //                

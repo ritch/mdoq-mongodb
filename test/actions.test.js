@@ -74,23 +74,20 @@ describe('Actions', function(){
       var fs = require('fs')
         , file = fs.createReadStream(__dirname + '/support/' + TEST_FILE)
       ;
-
+      
       users.file(file).post(function (err, body, req, res) {
         users.get({_id: TEST_FILE}, function (err, body, req, res) {
           expect(res.file).to.exist;
           
           var stream = res.file.stream(true)
-            , output  = fs.createWriteStream(__dirname + '/support/' + 'out-' + TEST_FILE);
+            , output = fs.createWriteStream(__dirname + '/support/' + 'out-' + TEST_FILE);
 
           stream
             .pipe(output)
             .on('close', function () {
               
               // compare files
-              var input = fs.createReadStream(__dirname + '/support/' + TEST_FILE)
-                , output = fs.createReadStream(__dirname + '/support/' + 'out-' + TEST_FILE)
-                , exec = require('child_process').exec
-              ;
+              var exec = require('child_process').exec;
               
               exec(['diff', __dirname + '/support/' + TEST_FILE, __dirname + '/support/' + 'out-' + TEST_FILE].join(' '), function (differ, same) {
                 expect(differ).to.not.exist;

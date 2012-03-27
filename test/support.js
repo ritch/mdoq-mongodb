@@ -27,7 +27,7 @@ before(drop);
  
 function clear(fn) {
   users.del(function (err) {
-    fn(err);
+    fn();
   })
 }
 

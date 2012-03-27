@@ -165,6 +165,14 @@ A simple function to rename a collection.
     users.rename('admins', function(err) {
       console.info(err || 'rename success!');
     });
+    
+### Drop
+
+Drop a collection from the db.
+
+    users.drop(function(err) {
+      console.info(err || 'dropped!');
+    })
 
 
 

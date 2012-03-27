@@ -62,7 +62,20 @@ middleware.directory = function () {
 }
 
 middleware.rename = function (name, fn) {
+  this.req = this.req || {};
   this.req.rename = name;
+  exec(this, fn);
+}
+
+middleware.drop = function (err, fn) {
+  this.req = this.req || {};
+  this.req.drop = true;
+  exec(this, fn);
+}
+
+middleware.dropDb = function (fn) {
+  this.req = this.req || {};
+  this.req.dropDb = true;
   exec(this, fn);
 }
 

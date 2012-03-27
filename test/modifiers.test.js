@@ -32,7 +32,7 @@ describe('Modifiers', function(){
       
       users.skip(skipped, function (err, res) {
         expect(res.length).to.equal(totalUsers - skipped);
-        expect(res[0].joined).to.equal(187);
+        expect(res[0].joined).to.equal(totalUsers - skipped - 1);
         done(err);
       })
     })
@@ -81,12 +81,13 @@ describe('Modifiers', function(){
   describe('rename(newName, [callback])', function(){
     it('should rename the collection', function(done) {
       users.rename('admins', function (err) {
+        expect(err).to.not.exist;
         var admins = mdoq
           .use(require('../'))
           .use('test-db')
           .use('/admins')
-          .get(function (e, admins) {
-            expect(admins).to.exist;
+          .get(function (e, res) {
+            expect(res).to.exist;
             done(e || err);
           })
         ;

@@ -77,4 +77,21 @@ describe('Modifiers', function(){
       })
     })
   })
+  
+  describe('rename(newName, [callback])', function(){
+    it('should rename the collection', function(done) {
+      users.rename('admins', function (err) {
+        var admins = mdoq
+          .use(require('../'))
+          .use('test-db')
+          .use('/admins')
+          .get(function (e, admins) {
+            expect(admins).to.exist;
+            done(e || err);
+          })
+        ;
+      })
+    })
+  })
+  
 })

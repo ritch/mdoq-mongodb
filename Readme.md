@@ -158,8 +158,13 @@ Return a listing of files for the collection
       console.info(err || files);
     });
 
+### Rename
 
+A simple function to rename a collection.
 
+    users.rename('admins', function(err) {
+      console.info(err || 'rename success!');
+    });
 
 
 

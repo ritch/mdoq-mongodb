@@ -61,4 +61,9 @@ middleware.directory = function () {
   return this;
 }
 
+middleware.rename = function (name, fn) {
+  this.req.rename = name;
+  exec(this, fn);
+}
+
 module.exports = middleware;

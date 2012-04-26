@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "mdoq": "0.8.x",
-    "mongodb": "0.9.9-7"
+    "mongodb": "0.9.9-8"
   },
   "devDependencies": {
     "mocha": "*"

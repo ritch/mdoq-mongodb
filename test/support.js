@@ -48,6 +48,3 @@ beforeEach(function(done){
     users.post(tusers, done);
   })
 });
-
-// clean up db
-after(drop);

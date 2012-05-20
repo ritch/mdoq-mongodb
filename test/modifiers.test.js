@@ -59,6 +59,31 @@ describe('Modifiers', function(){
     })
   })
   
+  describe('fields(keys, [callback])', function(){
+    it('should only return the provided fields', function(done) {
+      users.fields({email: 1}, function (err, docs) {
+        docs.forEach(function (doc) {
+          expect(doc.password).to.not.exist;
+          expect(doc.email).to.exist;
+          expect(doc.first).to.not.exist;
+          expect(doc.last).to.not.exist;
+        })
+        done(err);
+      });
+    })
+    it('should not return the provided fields of value 0', function(done) {
+      users.fields({password: 0}, function (err, docs) {
+        docs.forEach(function (doc) {
+          expect(doc.password).to.not.exist;
+          expect(doc.email).to.exist;
+          expect(doc.first).to.exist;
+          expect(doc.last).to.exist;
+        })
+        done(err);
+      });
+    })
+  })
+  
   describe('count([callback])', function(){
     it('should return a count of the results', function(done) {
       users.count(function (err, docs) {

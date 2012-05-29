@@ -42,6 +42,35 @@ describe('Actions', function(){
         })
       })
     })
+    
+    function example(query, len, done) {
+      users.get({email: names[0] + '@domain.com'}, function (err, res) {
+        users.get(query, function (err, user) {
+          if(len) expect(user).to.exist;
+          expect(user).to.have.length(len);
+          if(len === 1) expect(user[0].first).to.equal(names[0]);
+          done(err);
+        })
+      })
+    }
+    
+    it('should convert _id strings of length 24 to ObjectIDs and match inside advanced queries', function(done) {
+      users.get({email: names[0] + '@domain.com'}, function (err, res) {
+        example({_id: {$in: [res[0]._id.toString()]}}, 1, function (err) {
+          example({_id: {$all: [res[0]._id.toString()]}}, 1, function (err) {          
+            example({_id: {$ne: res[0]._id.toString()}}, names.length - 1, function (err) {
+              example({$or: [{_id: res[0]._id.toString()}, {_id: 'foo'}]}, 1, done)
+            })
+          })
+        })
+      })
+    })
+    
+    it('should not throw on an invalid _id', function(done) {
+      var id = '';
+      while(id.length < 24) {id += ''}
+      users.get({_id: id}, done);
+    })
   })
   
   describe('post(document, [callback])', function(){

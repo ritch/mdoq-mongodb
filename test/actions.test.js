@@ -160,12 +160,10 @@ describe('Actions', function(){
     
     it('should replace the document if not using $set', function(done) {
       users.first(function (err, res) {
-        users.get({_id: res._id.toString()}).put({_id: res._id.toString(), replaced: true}, function (err) {
+        users.get({_id: res._id.toString()}).put({replaced: true}, function (err) {
           users.get({_id: res._id}).first(function (e, r) {
             var expected = {replaced: true};
-            expected._id = res._id.toString();
-            r._id = r._id.toString();
-            
+            delete r._id;
             expect(r).to.eql(expected);
             done(e || err);
           });
